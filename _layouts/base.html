@@ -13,7 +13,7 @@
     <nav>
       <a href="{{ '/' | relative_url }}">All work</a>
       <a href="{{ '/how-it-works.html' | relative_url }}">How it works</a>
-      <a href="{{ site.repo_url }}">Files on GitHub</a>
+      <a href="{{ site.repo_url }}/tree/{{ site.repo_branch }}">Files on GitHub</a>
     </nav>
   </header>
   <main class="wrap">
@@ -23,7 +23,7 @@
   <script type="module">
     const blocks = document.querySelectorAll('div.language-mermaid, pre > code.language-mermaid');
     if (blocks.length) {
-      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs');
       blocks.forEach(b => {
         const host = b.tagName === 'DIV' ? b : b.parentElement;
         const pre = document.createElement('pre');

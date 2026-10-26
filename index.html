@@ -17,18 +17,19 @@ title: All work
 
 <div class="filters">
   <input id="q" type="search" placeholder="Search: a word, a Jira key, a component, a designer...">
-  <select id="area"><option value="">All product areas</option>{% for a in areas %}<option>{{ a }}</option>{% endfor %}</select>
+  <select id="area"><option value="">All product areas</option>{% for a in areas %}<option value="{{ a | escape }}">{{ a | escape }}</option>{% endfor %}</select>
 </div>
 
 <table class="work" id="work">
   <thead><tr><th>Task</th><th>Product area</th><th>Status</th><th>Designer</th><th>Updated</th></tr></thead>
   <tbody>
   {% for f in feats %}
-  <tr data-area="{{ f.product_area }}" data-text="{{ f.feature_id }} {{ f.title }} {{ f.product_area }} {{ f.designer }} {{ f.keywords | join: ' ' }}">
-    <td><a href="{{ f.url | relative_url }}"><b>{{ f.feature_id }}</b> {{ f.title }}</a></td>
-    <td>{{ f.product_area }}</td>
-    <td><span class="chip {{ f.status_color | default: 'yellow' }}">{{ f.status }}</span></td>
-    <td>{{ f.designer }}</td>
+  {% capture search_text %}{{ f.feature_id }} {{ f.title }} {{ f.product_area }} {{ f.designer }} {{ f.keywords | join: ' ' }}{% endcapture %}
+  <tr data-area="{{ f.product_area | escape }}" data-text="{{ search_text | strip | escape }}">
+    <td><a href="{{ f.url | relative_url }}"><b>{{ f.feature_id | escape }}</b> {{ f.title | escape }}</a></td>
+    <td>{{ f.product_area | escape }}</td>
+    <td><span class="chip {{ f.status_color | default: 'yellow' | escape }}">{{ f.status | escape }}</span></td>
+    <td>{{ f.designer | escape }}</td>
     <td>{{ f.updated }}</td>
   </tr>
   {% endfor %}

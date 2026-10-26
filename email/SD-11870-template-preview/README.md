@@ -23,6 +23,7 @@ links:
   - { label: "Jira", text: "SD-11870", url: "#", note: "example" }
 skipped:
   - { stage: "UX research", why: "a small change, validated with 2 partners in a call instead" }
+  - { stage: "Exploration", why: "one clear option after the benchmark, no ideation round needed" }
 similar: [SD-20001]
 ---
 

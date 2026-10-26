@@ -10,7 +10,7 @@ pm: Product Manager B
 started: 2026-06-02
 released: 2026-09-10
 updated: 2026-09-12
-updated_note: released, release snapshot saved
+updated_note: ID card updated after release
 keywords: [filters, search, empty state, chips, cards, InChip, InCard, discovery]
 stages:
   - { name: "0 Start", note: "Jun 2", state: done }
@@ -40,7 +40,7 @@ Partners can filter Template Store by channel and use case, search by template n
 
 ## Why
 
-- 3 of 5 interviewed partner users said finding a template takes them "longer than editing it".
+- 3 of 5 interviewed partner users scrolled the whole grid before they used search ([finding 2](02-research/ux-findings.md)).
 - 41% of Template Store sessions ended without a template being opened (example figure).
 - Support received 18 "where is the X template?" tickets last quarter (example figure).
 

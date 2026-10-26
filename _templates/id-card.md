@@ -7,9 +7,9 @@ status: Started            # Started | In pre-design | In design | Handed off | 
 status_color: yellow       # yellow | green | gray
 designer: Name
 pm: Name
-started: YYYY-MM-DD
+started:                   # date, written by Claude when the task starts
 released:
-updated: YYYY-MM-DD
+updated:                   # date, written by Claude on every save
 updated_note: what changed last
 keywords: []               # components, topics: used by search
 stages:
