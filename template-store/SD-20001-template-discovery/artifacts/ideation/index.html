@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SD-20001 ideation · 3 options</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Inter", Arial, sans-serif; background: #f4f5f7; color: #1e1e1e; font-size: 14px; padding: 24px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: #6b7280; margin-bottom: 20px; }
+  .opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .opt { background: #fff; border: 1px solid #e3e5e9; border-radius: 12px; padding: 16px; }
+  .opt.chosen { border: 2px solid #3e9b4b; }
+  .opt h2 { font-size: 16px; margin: 0 0 4px; }
+  .verdict { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; display: inline-block; margin-bottom: 10px; }
+  .drop { background: #ffe8e3; color: #a3341a; } .ok { background: #dff5e3; color: #1f6b34; }
+  .screen { border: 1px solid #e3e5e9; border-radius: 8px; height: 220px; display: flex; overflow: hidden; background: #fafbfc; }
+  .side { width: 33%; background: #eef0f3; padding: 8px; font-size: 10px; color: #6b7280; }
+  .area { flex: 1; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .chips { display: flex; gap: 4px; flex-wrap: wrap; } .chips span { background: #1e1e1e; color: #fff; border-radius: 999px; font-size: 9px; padding: 2px 6px; } .chips span.off { background: #fff; color: #1e1e1e; border: 1px solid #c9cdd3; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex: 1; } .cards div { background: #dfe6ef; border-radius: 4px; }
+  .fbtn { align-self: flex-start; border: 1px solid #c9cdd3; border-radius: 6px; font-size: 10px; padding: 3px 8px; background: #fff; }
+  .why { margin-top: 10px; color: #4a4f57; font-size: 13px; }
+  .tag-proto { position: fixed; bottom: 10px; right: 12px; background: #fff3cd; border: 1px solid #f0c36d; color: #6b4e00; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<h1>Ideation: how should partners filter templates?</h1>
+<div class="sub">Three options from the ui-ideation skill, Jun 14, 2026. Same copy in all three, so only the layout differs.</div>
+<div class="opts">
+  <div class="opt">
+    <h2>A. Left sidebar</h2><span class="verdict drop">Dropped</span>
+    <div class="screen"><div class="side">Channel<br>☐ Email<br>☐ SMS<br>☐ Web push<br>☐ WhatsApp<br><br>Use case<br>☐ Welcome<br>☐ Cart<br>☐ Win-back</div><div class="area"><div class="cards"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
+    <div class="why">Takes a third of the screen on 13-inch laptops. The grid shows only 2 columns.</div>
+  </div>
+  <div class="opt chosen">
+    <h2>B. Chips above the grid</h2><span class="verdict ok">Chosen</span>
+    <div class="screen"><div class="area"><div class="chips"><span>Email</span><span class="off">SMS</span><span class="off">Web push</span><span class="off">WhatsApp</span></div><div class="chips"><span class="off">Welcome</span><span>Cart</span><span class="off">Win-back</span><span class="off">Promotion</span></div><div class="cards"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
+    <div class="why">Keeps the grid wide. Matches research: users start from the channel.</div>
+  </div>
+  <div class="opt">
+    <h2>C. One "Filter" button</h2><span class="verdict drop">Dropped</span>
+    <div class="screen"><div class="area"><div class="fbtn">Filter ▾</div><div class="cards"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
+    <div class="why">Hides the filters. In research, users scanned the page before they searched.</div>
+  </div>
+</div>
+<div class="tag-proto">IDEATION · archived · example data</div>
+</body>
+</html>

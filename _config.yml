@@ -1,0 +1,45 @@
+title: Design Library
+description: Every design task in one place, readable years later. Demo with example data.
+baseurl: "/test"
+repo_url: "https://github.com/raifeuskanru/test"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-default-layout
+  - jekyll-relative-links
+
+readme_index:
+  with_frontmatter: true
+
+titles_from_headings:
+  strip_title: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: doc
+
+stages:
+  - folder: 01-intake
+    label: Intake
+  - folder: 02-research
+    label: Research
+  - folder: 03-exploration
+    label: Exploration
+  - folder: 04-design
+    label: Design
+  - folder: 05-handoff
+    label: Handoff and development
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

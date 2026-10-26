@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SD-20001 benchmark · template galleries</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Inter", Arial, sans-serif; background: #f4f5f7; color: #1e1e1e; font-size: 14px; padding: 24px; }
+  h1 { font-size: 22px; margin: 0 0 4px; } .sub { color: #6b7280; margin-bottom: 20px; }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .c { background: #fff; border: 1px solid #e3e5e9; border-radius: 12px; padding: 16px; }
+  .c h2 { font-size: 16px; margin: 0 0 10px; }
+  .score { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f1f3; }
+  .bar { height: 8px; border-radius: 4px; background: #e3e5e9; width: 120px; margin-top: 6px; } .bar i { display: block; height: 100%; border-radius: 4px; background: #3dadff; }
+  .take { margin-top: 20px; background: #fffbf0; border: 1px solid #ffe2a0; border-radius: 12px; padding: 14px 18px; }
+  .tag-proto { position: fixed; bottom: 10px; right: 12px; background: #fff3cd; border: 1px solid #f0c36d; color: #6b4e00; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<h1>Benchmark: template galleries</h1>
+<div class="sub">Output of /competitor-benchmark, Jun 6, 2026. Competitors anonymised, scores are example data.</div>
+<div class="row">
+  <div class="c"><h2>Competitor A</h2>
+    <div class="score"><span>Filter visibility</span><div class="bar"><i style="width:90%"></i></div></div>
+    <div class="score"><span>Search quality</span><div class="bar"><i style="width:75%"></i></div></div>
+    <div class="score"><span>Empty state</span><div class="bar"><i style="width:85%"></i></div></div>
+    <p>Channel, industry and goal as chips above the grid. Empty state suggests removing a filter.</p></div>
+  <div class="c"><h2>Competitor B</h2>
+    <div class="score"><span>Filter visibility</span><div class="bar"><i style="width:70%"></i></div></div>
+    <div class="score"><span>Search quality</span><div class="bar"><i style="width:50%"></i></div></div>
+    <div class="score"><span>Empty state</span><div class="bar"><i style="width:20%"></i></div></div>
+    <p>Left sidebar with checkboxes. Hides a third of the grid. Blank page when nothing matches.</p></div>
+  <div class="c"><h2>Competitor C</h2>
+    <div class="score"><span>Filter visibility</span><div class="bar"><i style="width:35%"></i></div></div>
+    <div class="score"><span>Search quality</span><div class="bar"><i style="width:40%"></i></div></div>
+    <div class="score"><span>Empty state</span><div class="bar"><i style="width:40%"></i></div></div>
+    <p>One dropdown. Full content search returns many weak matches.</p></div>
+</div>
+<div class="take"><b>Takeaways:</b> chips above the grid keep it wide · name and tag search is enough · an empty state should offer a way out.</div>
+<div class="tag-proto">BENCHMARK · archived · example data</div>
+</body>
+</html>

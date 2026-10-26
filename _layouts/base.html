@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <div class="demo-banner">DEMO · example data only · not a real Insider project</div>
+  <header class="topbar">
+    <a class="logo" href="{{ '/' | relative_url }}">Design Library</a>
+    <nav>
+      <a href="{{ '/' | relative_url }}">All work</a>
+      <a href="{{ '/how-it-works.html' | relative_url }}">How it works</a>
+      <a href="{{ site.repo_url }}">Files on GitHub</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    {{ content }}
+  </main>
+  <footer class="foot">Built automatically by GitHub Pages from the files in this repository. Nobody edits these pages by hand.</footer>
+  <script type="module">
+    const blocks = document.querySelectorAll('div.language-mermaid, pre > code.language-mermaid');
+    if (blocks.length) {
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+      blocks.forEach(b => {
+        const host = b.tagName === 'DIV' ? b : b.parentElement;
+        const pre = document.createElement('pre');
+        pre.className = 'mermaid';
+        pre.textContent = host.textContent;
+        host.replaceWith(pre);
+      });
+      mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+      await mermaid.run();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+---
+layout: base
+---
+{% assign feats = site.pages | where_exp: "p", "p.feature_id != nil" %}
+{% assign feature = nil %}
+{% for f in feats %}{% if page.dir contains f.dir and page.url != f.url %}{% assign feature = f %}{% endif %}{% endfor %}
+<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a>{% if feature %} / {{ feature.product_area }} / <a href="{{ feature.url | relative_url }}">{{ feature.feature_id }} {{ feature.title }}</a>{% endif %}</div>
+<article class="card doc">
+  <h1>{{ page.title }}</h1>
+  {{ content }}
+</article>
+<p class="src">Source file: <a href="{{ site.repo_url }}/blob/main/{{ page.path }}">{{ page.path }}</a>{% if feature %} · <a href="{{ feature.url | relative_url }}">Back to the feature page</a>{% endif %}</p>

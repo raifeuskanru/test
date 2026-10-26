@@ -1,0 +1,48 @@
+---
+layout: base
+title: All work
+---
+{% assign feats = site.pages | where_exp: "p", "p.feature_id != nil" | sort: "updated" | reverse %}
+{% assign areas = feats | map: "product_area" | uniq | sort %}
+<div class="hero">
+  <h1>Design Library</h1>
+  <p class="muted">Every design task, kept in one place: research, ideas, decisions, what was not chosen and why, the prototype and the developer handoff. Open a task to understand it in five minutes, without asking its designer.</p>
+</div>
+
+<div class="stats">
+  <div class="card"><b>{{ feats.size }}</b>tasks in the library</div>
+  <div class="card"><b>{{ areas.size }}</b>product areas</div>
+  <div class="card"><b>{% assign rel = feats | where: "status", "Released" %}{{ rel.size }}</b>released</div>
+</div>
+
+<div class="filters">
+  <input id="q" type="search" placeholder="Search: a word, a Jira key, a component, a designer...">
+  <select id="area"><option value="">All product areas</option>{% for a in areas %}<option>{{ a }}</option>{% endfor %}</select>
+</div>
+
+<table class="work" id="work">
+  <thead><tr><th>Task</th><th>Product area</th><th>Status</th><th>Designer</th><th>Updated</th></tr></thead>
+  <tbody>
+  {% for f in feats %}
+  <tr data-area="{{ f.product_area }}" data-text="{{ f.feature_id }} {{ f.title }} {{ f.product_area }} {{ f.designer }} {{ f.keywords | join: ' ' }}">
+    <td><a href="{{ f.url | relative_url }}"><b>{{ f.feature_id }}</b> {{ f.title }}</a></td>
+    <td>{{ f.product_area }}</td>
+    <td><span class="chip {{ f.status_color | default: 'yellow' }}">{{ f.status }}</span></td>
+    <td>{{ f.designer }}</td>
+    <td>{{ f.updated }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p id="none" class="muted" hidden>No task matches. Try another word, or ask Claude: "Has anything like this been done before?"</p>
+
+<script>
+  const q = document.getElementById('q'), area = document.getElementById('area');
+  const rows = [...document.querySelectorAll('#work tbody tr')], none = document.getElementById('none');
+  function apply() {
+    const t = q.value.trim().toLowerCase(), a = area.value; let shown = 0;
+    rows.forEach(r => { const ok = (!a || r.dataset.area === a) && (!t || r.dataset.text.toLowerCase().includes(t)); r.hidden = !ok; if (ok) shown++; });
+    none.hidden = shown > 0;
+  }
+  q.addEventListener('input', apply); area.addEventListener('change', apply);
+</script>

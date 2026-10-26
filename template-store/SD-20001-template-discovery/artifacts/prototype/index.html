@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SD-20001 prototype · Template Store</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Inter", Arial, sans-serif; background: #f4f5f7; color: #1e1e1e; font-size: 14px; }
+  .app { display: grid; grid-template-columns: 200px 1fr; min-height: 100vh; }
+  .nav { background: #22252b; color: #c8ccd4; padding: 18px 14px; }
+  .nav .brand { color: #fff; font-weight: 700; margin-bottom: 18px; }
+  .nav div.i { padding: 8px 10px; border-radius: 6px; margin: 2px 0; }
+  .nav div.on { background: #3a3f48; color: #fff; }
+  .main { padding: 24px 28px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: #6b7280; margin-bottom: 16px; }
+  .search { width: 100%; max-width: 520px; padding: 10px 14px; border: 1px solid #d0d4da; border-radius: 8px; font-size: 14px; margin-bottom: 14px; }
+  .group { display: flex; align-items: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+  .group .lbl { width: 80px; color: #6b7280; font-size: 13px; }
+  .chip { border: 1px solid #d0d4da; background: #fff; border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; user-select: none; }
+  .chip.on { background: #1e1e1e; color: #fff; border-color: #1e1e1e; }
+  .count { margin: 14px 0; color: #4a4f57; display: flex; justify-content: space-between; align-items: center; }
+  .clear { color: #1a5fd0; cursor: pointer; font-size: 13px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid #e3e5e9; border-radius: 10px; overflow: hidden; }
+  .thumb { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; color: rgba(0,0,0,.45); font-weight: 600; font-size: 12px; }
+  .meta { padding: 10px 12px; }
+  .meta b { display: block; margin-bottom: 4px; }
+  .tag { display: inline-block; font-size: 11px; background: #eceef1; border-radius: 999px; padding: 2px 8px; margin-right: 4px; }
+  .empty { background: #fff; border: 1px dashed #c9cdd3; border-radius: 12px; padding: 48px; text-align: center; }
+  .empty h2 { font-size: 17px; margin: 0 0 6px; }
+  .btn { display: inline-block; margin-top: 14px; padding: 8px 16px; border-radius: 8px; background: #1e1e1e; color: #fff; cursor: pointer; }
+  .tag-proto { position: fixed; bottom: 10px; right: 12px; background: #fff3cd; border: 1px solid #f0c36d; color: #6b4e00; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="nav"><div class="brand">Panel</div><div class="i">Dashboard</div><div class="i">Campaigns</div><div class="i on">Template Store</div><div class="i">Reports</div></div>
+  <div class="main">
+    <h1>Template Store</h1>
+    <div class="sub">Find a template to start your campaign.</div>
+    <input class="search" id="q" placeholder="Search by name or tag">
+    <div class="group" id="g-channel"><span class="lbl">Channel</span></div>
+    <div class="group" id="g-use"><span class="lbl">Use case</span></div>
+    <div class="count"><span id="count"></span><span class="clear" id="clear" hidden>Clear filters</span></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <h2>No templates match these filters</h2>
+      <div style="color:#6b7280">Try removing a filter or searching for another word.</div>
+      <div class="btn" id="clear2">Clear filters</div>
+    </div>
+  </div>
+</div>
+<div class="tag-proto">PROTOTYPE · archived at handoff · example data</div>
+<script>
+const channels = ['Email', 'SMS', 'Web push', 'WhatsApp'];
+const uses = ['Welcome', 'Abandoned cart', 'Win-back', 'Promotion'];
+const colors = { Email: '#c2e5ff', SMS: '#cdf4d3', 'Web push': '#ffe0c2', WhatsApp: '#dcccff' };
+const templates = [
+  ['Welcome series', 'Email', 'Welcome'], ['First order thank you', 'Email', 'Welcome'],
+  ['Cart reminder 1 hour', 'Email', 'Abandoned cart'], ['Cart reminder with discount', 'SMS', 'Abandoned cart'],
+  ['We miss you', 'Email', 'Win-back'], ['Come back offer', 'Web push', 'Win-back'],
+  ['Flash sale', 'Web push', 'Promotion'], ['Weekend deals', 'Email', 'Promotion'],
+  ['Hello on WhatsApp', 'WhatsApp', 'Welcome'], ['Cart on WhatsApp', 'WhatsApp', 'Abandoned cart'],
+  ['Price drop', 'SMS', 'Promotion'], ['Win-back on WhatsApp', 'WhatsApp', 'Win-back']
+];
+const sel = { channel: new Set(), use: new Set() };
+function chips(id, list, key) {
+  const g = document.getElementById(id);
+  list.forEach(v => { const c = document.createElement('span'); c.className = 'chip'; c.textContent = v; c.onclick = () => { sel[key].has(v) ? sel[key].delete(v) : sel[key].add(v); c.classList.toggle('on'); render(); }; g.appendChild(c); });
+}
+function render() {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const res = templates.filter(([n, ch, u]) => (!sel.channel.size || sel.channel.has(ch)) && (!sel.use.size || sel.use.has(u)) && (q.length < 2 || (n + ' ' + ch + ' ' + u).toLowerCase().includes(q)));
+  const grid = document.getElementById('grid'); grid.innerHTML = '';
+  res.forEach(([n, ch, u]) => { grid.insertAdjacentHTML('beforeend', `<div class="card"><div class="thumb" style="background:${colors[ch]}">${ch} preview</div><div class="meta"><b>${n}</b><span class="tag">${ch}</span><span class="tag">${u}</span></div></div>`); });
+  const active = sel.channel.size || sel.use.size || q.length >= 2;
+  document.getElementById('count').textContent = res.length + ' of ' + templates.length + ' templates';
+  document.getElementById('clear').hidden = !active;
+  document.getElementById('empty').hidden = res.length > 0;
+  grid.hidden = res.length === 0;
+}
+function clearAll() { sel.channel.clear(); sel.use.clear(); document.getElementById('q').value = ''; document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on')); render(); }
+chips('g-channel', channels, 'channel'); chips('g-use', uses, 'use');
+document.getElementById('q').oninput = render;
+document.getElementById('clear').onclick = clearAll; document.getElementById('clear2').onclick = clearAll;
+const h = new URLSearchParams(location.hash.slice(1));
+if (h.get('channel')) h.get('channel').split(',').forEach(v => [...document.querySelectorAll('#g-channel .chip')].find(c => c.textContent === v)?.click());
+if (h.get('use')) h.get('use').split(',').forEach(v => [...document.querySelectorAll('#g-use .chip')].find(c => c.textContent === v)?.click());
+if (h.get('q')) document.getElementById('q').value = h.get('q');
+render();
+</script>
+</body>
+</html>
