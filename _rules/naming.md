@@ -31,7 +31,7 @@ Every task has exactly one place. Three levels, always.
 ## When teams change
 
 - Claude moves the task folder with `git mv`, so its history stays.
-- The ID card's `team` and `subteam` change with it.
+- The ID card's `team`, `subteam` and `permalink` change with it. `permalink` is always the folder path, so the task page address and the short link stay correct.
 - The short link `/tasks/<JIRA-KEY>/` keeps working, because every ID card has `redirect_from: [/tasks/<JIRA-KEY>/]`. Share that link in Jira and Confluence, not the long one.
 
 ## Files

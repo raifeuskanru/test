@@ -5,6 +5,7 @@ title: Bulk edit for journey templates
 team: Scalability
 subteam: Pathfinders
 product_area: Journey
+permalink: /scalability/pathfinders/SD-12345-bulk-edit-templates/
 redirect_from: [/tasks/SD-12345/]
 status: In pre-design
 status_color: yellow

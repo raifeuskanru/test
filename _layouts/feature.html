@@ -10,9 +10,9 @@ layout: base
   <div>
     <span class="chip gray">{{ page.feature_id | escape }}</span><span class="chip blue">{{ page.product_area | escape }}</span><span class="chip {{ page.status_color | default: 'yellow' | escape }}">{{ page.status | escape }}</span>
     <h1>{{ page.title | escape }}</h1>
-    <div class="muted">{{ page.team | escape }} / {{ page.subteam | escape }} · Designer: {{ page.designer | escape }} · PM: {{ page.pm | escape }} · Started {{ page.started }}{% if page.released %} · Released {{ page.released }}{% endif %}</div>
+    <div class="muted">{{ page.team | escape }} / {{ page.subteam | escape }} · Designer: {{ page.designer | escape }} · PM: {{ page.pm | escape }}{% if page.started %} · Started {{ page.started }}{% endif %}{% if page.released %} · Released {{ page.released }}{% endif %}</div>
   </div>
-  <div class="note fresh"><b>Last updated</b><br>{{ page.updated }}{% if page.updated_note %}: {{ page.updated_note | escape }}{% endif %}</div>
+  {% if page.updated %}<div class="note fresh"><b>Last updated</b><br>{{ page.updated }}{% if page.updated_note %}: {{ page.updated_note | escape }}{% endif %}</div>{% endif %}
 </div>
 
 <div class="stages">

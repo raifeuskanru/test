@@ -4,7 +4,7 @@ layout: base
 {% assign feats = site.pages | where_exp: "p", "p.feature_id != nil" %}
 {% assign feature = nil %}
 {% for f in feats %}{% if page.dir contains f.dir and page.url != f.url %}{% assign feature = f %}{% endif %}{% endfor %}
-<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a>{% if feature %} / {{ feature.team | escape }} / {{ feature.subteam | escape }} / <a href="{{ feature.url | relative_url }}">{{ feature.feature_id | escape }} {{ feature.title | escape }}</a>{% endif %}</div>
+<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a>{% if feature %}{% assign fparts = feature.dir | split: '/' %}{% capture team_url %}/{{ fparts[1] }}/{% endcapture %}{% capture sub_url %}/{{ fparts[1] }}/{{ fparts[2] }}/{% endcapture %} / <a href="{{ team_url | relative_url }}">{{ feature.team | escape }}</a> / <a href="{{ sub_url | relative_url }}">{{ feature.subteam | escape }}</a> / <a href="{{ feature.url | relative_url }}">{{ feature.feature_id | escape }} {{ feature.title | escape }}</a>{% endif %}</div>
 <article class="card doc">
   <h1>{{ page.title | escape }}</h1>
   {{ content }}

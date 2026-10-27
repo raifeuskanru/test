@@ -5,6 +5,7 @@ title: Template preview before editing
 team: Messaging
 subteam: Postmen
 product_area: Email
+permalink: /messaging/postmen/SD-11870-template-preview/
 redirect_from: [/tasks/SD-11870/]
 status: Released
 status_color: green
@@ -13,7 +14,7 @@ pm: Product Manager B
 started: 2025-09-01
 released: 2025-11-20
 updated: 2025-11-22
-updated_note: released
+updated_note: ID card updated after release
 keywords: [preview, modal, templates, InModal]
 stages:
   - { name: "0 Start", note: "Sep 1, 2025", state: done }

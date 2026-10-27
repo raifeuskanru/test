@@ -5,6 +5,7 @@ title: Easier template discovery in Template Store
 team: Scalability
 subteam: Skeletors
 product_area: Template Store
+permalink: /scalability/skeletors/SD-20001-template-discovery/
 redirect_from: [/tasks/SD-20001/]
 status: Released
 status_color: green

@@ -5,6 +5,7 @@ title: Short title of the task
 team: Official team name           # folder level 1
 subteam: Official subteam name     # folder level 2, "General" if none
 product_area: Product area
+permalink: /<team>/<subteam>/SD-00000-short-name/   # same as the folder path; update it when the folder moves
 redirect_from: [/tasks/SD-00000/]  # short link that survives folder moves
 status: Started            # Started | In pre-design | In design | Handed off | In development | Released
 status_color: yellow       # yellow | green | gray

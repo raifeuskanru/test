@@ -20,7 +20,7 @@ title: All work
 
 <h2>All tasks</h2>
 <div class="filters">
-  <input id="q" type="search" placeholder="Search: a word, a Jira key, a component...">
+  <input id="q" type="search" placeholder="Search: a word, a Jira key, a component, a designer...">
   <select id="team"><option value="">All teams</option>{% for t in teams %}<option value="{{ t | escape }}">{{ t | escape }}</option>{% endfor %}</select>
   <select id="designer"><option value="">All designers</option>{% for d in designers %}<option value="{{ d | escape }}">{{ d | escape }}</option>{% endfor %}</select>
 </div>
