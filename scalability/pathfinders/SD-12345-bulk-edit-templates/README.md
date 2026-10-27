@@ -2,7 +2,10 @@
 layout: feature
 feature_id: SD-12345
 title: Bulk edit for journey templates
+team: Scalability
+subteam: Pathfinders
 product_area: Journey
+redirect_from: [/tasks/SD-12345/]
 status: In pre-design
 status_color: yellow
 designer: Product Designer C

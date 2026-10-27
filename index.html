@@ -3,31 +3,39 @@ layout: base
 title: All work
 ---
 {% assign feats = site.pages | where_exp: "p", "p.feature_id != nil" | sort: "updated" | reverse %}
-{% assign areas = feats | map: "product_area" | uniq | sort %}
+{% assign teams = feats | map: "team" | uniq | sort %}
+{% assign designers = feats | map: "designer" | uniq | sort %}
 <div class="hero">
   <h1>Design Library</h1>
-  <p class="muted">Every design task, kept in one place: research, ideas, decisions, what was not chosen and why, the prototype and the developer handoff. Open a task to understand it in five minutes, without asking its designer.</p>
+  <p class="muted">Every design task, kept in one place: research, ideas, decisions, what was not chosen and why, the prototype and the developer handoff. Organised as team, then subteam, then task. Open a task to understand it in five minutes, without asking its designer.</p>
 </div>
 
+<h2>Teams</h2>
 <div class="stats">
-  <div class="card"><b>{{ feats.size }}</b>tasks in the library</div>
-  <div class="card"><b>{{ areas.size }}</b>product areas</div>
-  <div class="card"><b>{% assign rel = feats | where: "status", "Released" %}{{ rel.size }}</b>released</div>
+  {% for t in teams %}{% assign tf = feats | where: "team", t %}{% assign ts = tf | map: "subteam" | uniq %}{% assign tfirst = tf | first %}{% assign tp = tfirst.dir | split: '/' %}
+  {% capture team_url %}/{{ tp[1] }}/{% endcapture %}
+  <a class="card" href="{{ team_url | relative_url }}"><b>{{ t | escape }}</b>{{ ts.size }} subteam{% if ts.size != 1 %}s{% endif %} · {{ tf.size }} task{% if tf.size != 1 %}s{% endif %}</a>
+  {% endfor %}
 </div>
 
+<h2>All tasks</h2>
 <div class="filters">
-  <input id="q" type="search" placeholder="Search: a word, a Jira key, a component, a designer...">
-  <select id="area"><option value="">All product areas</option>{% for a in areas %}<option value="{{ a | escape }}">{{ a | escape }}</option>{% endfor %}</select>
+  <input id="q" type="search" placeholder="Search: a word, a Jira key, a component...">
+  <select id="team"><option value="">All teams</option>{% for t in teams %}<option value="{{ t | escape }}">{{ t | escape }}</option>{% endfor %}</select>
+  <select id="designer"><option value="">All designers</option>{% for d in designers %}<option value="{{ d | escape }}">{{ d | escape }}</option>{% endfor %}</select>
 </div>
 
 <table class="work" id="work">
-  <thead><tr><th>Task</th><th>Product area</th><th>Status</th><th>Designer</th><th>Updated</th></tr></thead>
+  <thead><tr><th>Task</th><th>Team</th><th>Subteam</th><th>Status</th><th>Designer</th><th>Updated</th></tr></thead>
   <tbody>
   {% for f in feats %}
-  {% capture search_text %}{{ f.feature_id }} {{ f.title }} {{ f.product_area }} {{ f.designer }} {{ f.keywords | join: ' ' }}{% endcapture %}
-  <tr data-area="{{ f.product_area | escape }}" data-text="{{ search_text | strip | escape }}">
+  {% capture search_text %}{{ f.feature_id }} {{ f.title }} {{ f.team }} {{ f.subteam }} {{ f.product_area }} {{ f.designer }} {{ f.keywords | join: ' ' }}{% endcapture %}
+  {% assign fp = f.dir | split: '/' %}
+  {% capture f_team_url %}/{{ fp[1] }}/{% endcapture %}{% capture f_sub_url %}/{{ fp[1] }}/{{ fp[2] }}/{% endcapture %}
+  <tr data-team="{{ f.team | escape }}" data-designer="{{ f.designer | escape }}" data-text="{{ search_text | strip | escape }}">
     <td><a href="{{ f.url | relative_url }}"><b>{{ f.feature_id | escape }}</b> {{ f.title | escape }}</a></td>
-    <td>{{ f.product_area | escape }}</td>
+    <td><a href="{{ f_team_url | relative_url }}">{{ f.team | escape }}</a></td>
+    <td><a href="{{ f_sub_url | relative_url }}">{{ f.subteam | escape }}</a></td>
     <td><span class="chip {{ f.status_color | default: 'yellow' | escape }}">{{ f.status | escape }}</span></td>
     <td>{{ f.designer | escape }}</td>
     <td>{{ f.updated }}</td>
@@ -38,12 +46,12 @@ title: All work
 <p id="none" class="muted" hidden>No task matches. Try another word, or ask Claude: "Has anything like this been done before?"</p>
 
 <script>
-  const q = document.getElementById('q'), area = document.getElementById('area');
+  const q = document.getElementById('q'), team = document.getElementById('team'), des = document.getElementById('designer');
   const rows = [...document.querySelectorAll('#work tbody tr')], none = document.getElementById('none');
   function apply() {
-    const t = q.value.trim().toLowerCase(), a = area.value; let shown = 0;
-    rows.forEach(r => { const ok = (!a || r.dataset.area === a) && (!t || r.dataset.text.toLowerCase().includes(t)); r.hidden = !ok; if (ok) shown++; });
+    const t = q.value.trim().toLowerCase(); let shown = 0;
+    rows.forEach(r => { const ok = (!team.value || r.dataset.team === team.value) && (!des.value || r.dataset.designer === des.value) && (!t || r.dataset.text.toLowerCase().includes(t)); r.hidden = !ok; if (ok) shown++; });
     none.hidden = shown > 0;
   }
-  q.addEventListener('input', apply); area.addEventListener('change', apply);
+  [q, team, des].forEach(el => el.addEventListener(el === q ? 'input' : 'change', apply));
 </script>

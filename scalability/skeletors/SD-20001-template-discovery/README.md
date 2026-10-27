@@ -2,7 +2,10 @@
 layout: feature
 feature_id: SD-20001
 title: Easier template discovery in Template Store
+team: Scalability
+subteam: Skeletors
 product_area: Template Store
+redirect_from: [/tasks/SD-20001/]
 status: Released
 status_color: green
 designer: Product Designer A

@@ -15,6 +15,7 @@ plugins:
   - jekyll-titles-from-headings
   - jekyll-default-layout
   - jekyll-relative-links
+  - jekyll-redirect-from
 
 readme_index:
   with_frontmatter: true

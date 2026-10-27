@@ -2,7 +2,10 @@
 layout: feature
 feature_id: SD-00000
 title: Short title of the task
+team: Official team name           # folder level 1
+subteam: Official subteam name     # folder level 2, "General" if none
 product_area: Product area
+redirect_from: [/tasks/SD-00000/]  # short link that survives folder moves
 status: Started            # Started | In pre-design | In design | Handed off | In development | Released
 status_color: yellow       # yellow | green | gray
 designer: Name

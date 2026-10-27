@@ -3,13 +3,14 @@ layout: base
 ---
 {% assign docs = site.pages | where_exp: "p", "p.dir contains page.dir" | sort: "path" %}
 {% assign shots = site.static_files | where_exp: "f", "f.path contains page.dir" | where: "extname", ".png" %}
-<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a> / {{ page.product_area | escape }} / {{ page.feature_id | escape }}</div>
+{% assign parts = page.dir | split: '/' %}
+<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a> / <a href="{{ '/' | append: parts[1] | append: '/' | relative_url }}">{{ page.team | escape }}</a> / <a href="{{ '/' | append: parts[1] | append: '/' | append: parts[2] | append: '/' | relative_url }}">{{ page.subteam | escape }}</a> / {{ page.feature_id | escape }}</div>
 
 <div class="title-row">
   <div>
     <span class="chip gray">{{ page.feature_id | escape }}</span><span class="chip blue">{{ page.product_area | escape }}</span><span class="chip {{ page.status_color | default: 'yellow' | escape }}">{{ page.status | escape }}</span>
     <h1>{{ page.title | escape }}</h1>
-    <div class="muted">Designer: {{ page.designer | escape }} · PM: {{ page.pm | escape }} · Started {{ page.started }}{% if page.released %} · Released {{ page.released }}{% endif %}</div>
+    <div class="muted">{{ page.team | escape }} / {{ page.subteam | escape }} · Designer: {{ page.designer | escape }} · PM: {{ page.pm | escape }} · Started {{ page.started }}{% if page.released %} · Released {{ page.released }}{% endif %}</div>
   </div>
   <div class="note fresh"><b>Last updated</b><br>{{ page.updated }}{% if page.updated_note %}: {{ page.updated_note | escape }}{% endif %}</div>
 </div>
@@ -87,4 +88,4 @@ layout: base
   <p class="muted small">Decisions themselves are recorded on the Confluence decision page. This library links to them and keeps a one-line summary, so the reason stays readable even if a link breaks.</p>
 </section>
 
-<p class="src">Source files of this page: <a href="{{ site.repo_url }}/tree/{{ site.repo_branch }}{{ page.dir | escape }}">{{ page.dir | escape }}</a></p>
+<p class="src">Short link that survives folder moves: <a href="{{ '/tasks/' | append: page.feature_id | append: '/' | relative_url }}">{{ '/tasks/' | append: page.feature_id | append: '/' | relative_url }}</a><br>Source files of this page: <a href="{{ site.repo_url }}/tree/{{ site.repo_branch }}{{ page.dir | escape }}">{{ page.dir | escape }}</a></p>

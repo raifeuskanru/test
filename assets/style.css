@@ -69,6 +69,7 @@ table.work { width: 100%; border-collapse: collapse; background: #fff; border: 1
 table.work th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; padding: 10px 14px; border-bottom: 1px solid #e3e5e9; background: #fafbfc; }
 table.work td { padding: 12px 14px; border-bottom: 1px solid #f0f1f3; font-size: 14px; }
 .stats { display: flex; gap: 14px; margin: 14px 0; }
-.stats .card { flex: 1; padding: 14px 18px; }
+.stats .card { flex: 1; padding: 14px 18px; color: #1e1e1e; }
+a.card:hover { border-color: #3dadff; text-decoration: none; }
 .stats b { font-size: 22px; display: block; }
 @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .shots { grid-template-columns: 1fr 1fr; } }

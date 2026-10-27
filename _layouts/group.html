@@ -1,0 +1,41 @@
+---
+layout: base
+---
+{% assign feats = site.pages | where_exp: "p", "p.feature_id != nil" | where: "team", page.team %}
+{% if page.subteam %}{% assign feats = feats | where: "subteam", page.subteam %}{% endif %}
+{% assign feats = feats | sort: "updated" | reverse %}
+{% assign parts = page.dir | split: '/' %}
+<div class="crumb"><a href="{{ '/' | relative_url }}">All work</a>{% if page.subteam %} / <a href="{{ '/' | append: parts[1] | append: '/' | relative_url }}">{{ page.team | escape }}</a>{% endif %}</div>
+
+<div class="hero">
+  <span class="chip gray">{% if page.subteam %}Subteam{% else %}Team{% endif %}</span>
+  <h1>{{ page.title | escape }}</h1>
+  <p class="muted">{{ page.description | escape }}</p>
+</div>
+
+{% unless page.subteam %}
+{% assign subs = feats | map: "subteam" | uniq | sort %}
+<h2>Subteams</h2>
+<div class="stats">
+  {% for s in subs %}{% assign n = feats | where: "subteam", s %}{% assign nf = n | first %}{% assign np = nf.dir | split: '/' %}
+  {% capture sub_url %}/{{ np[1] }}/{{ np[2] }}/{% endcapture %}
+  <a class="card" href="{{ sub_url | relative_url }}"><b>{{ s | escape }}</b>{{ n.size }} task{% if n.size != 1 %}s{% endif %}</a>
+  {% endfor %}
+</div>
+{% endunless %}
+
+<h2>Tasks</h2>
+<table class="work">
+  <thead><tr><th>Task</th>{% unless page.subteam %}<th>Subteam</th>{% endunless %}<th>Status</th><th>Designer</th><th>Updated</th></tr></thead>
+  <tbody>
+  {% for f in feats %}
+  <tr>
+    <td><a href="{{ f.url | relative_url }}"><b>{{ f.feature_id | escape }}</b> {{ f.title | escape }}</a></td>
+    {% unless page.subteam %}<td>{{ f.subteam | escape }}</td>{% endunless %}
+    <td><span class="chip {{ f.status_color | default: 'yellow' | escape }}">{{ f.status | escape }}</span></td>
+    <td>{{ f.designer | escape }}</td>
+    <td>{{ f.updated }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>

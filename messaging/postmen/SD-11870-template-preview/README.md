@@ -2,7 +2,10 @@
 layout: feature
 feature_id: SD-11870
 title: Template preview before editing
+team: Messaging
+subteam: Postmen
 product_area: Email
+redirect_from: [/tasks/SD-11870/]
 status: Released
 status_color: green
 designer: Product Designer E
